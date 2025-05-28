@@ -1,0 +1,26 @@
+name: Unity CI Test Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: '이름을 입력하세요'
+        required: true
+        default: '홍길동'
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Show current date
+        run: date
+
+      - name: Print Hello
+        run: echo "Hello, ${{ github.event.inputs.name }}!"
+
+      - name: List repository files
+        run: ls -la
