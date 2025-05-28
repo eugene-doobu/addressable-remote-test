@@ -37,10 +37,6 @@ jobs:
         uses: game-ci/unity-builder@v4
         with:
           targetPlatform: StandaloneWindows64
-
-      - uses: game-ci/unity-builder@v4
-        with:
-          targetPlatform: StandaloneWindows64
           buildMethod: 'Builder.BuildStandaloneWindows64' # (네임스페이스.)클래스.메서드명
 
       # Step4 - Upload Build File

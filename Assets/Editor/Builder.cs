@@ -59,9 +59,22 @@ public static class Builder
         {
             case BuildResult.Succeeded:
                 Debug.Log($"Build succeeded: {summary.totalSize} bytes");
-                FileUtil.CopyFileOrDirectory(
-                    Path.Combine(ProjectPath, "README.md"),
-                    Path.Combine(BuildBasePath, targetDirName, "README.md"));
+                var readmePath = Path.Combine(ProjectPath, "README.md");
+                var targetReadmePath = Path.Combine(BuildBasePath, targetDirName, "README.md");
+
+                if (!File.Exists(readmePath))
+                {
+                    Debug.LogWarning("README.md not found, skipping copy.");
+                    return;
+                }
+
+                if (File.Exists(targetReadmePath))
+                {
+                    Debug.LogWarning("README.md already exists in the target directory, skipping copy.");
+                    return;
+                }
+
+                FileUtil.CopyFileOrDirectory(readmePath, targetReadmePath);
                 break;
             case BuildResult.Failed:
                 Debug.LogError("Build failed");
