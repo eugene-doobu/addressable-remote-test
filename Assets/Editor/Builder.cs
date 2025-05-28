@@ -6,8 +6,10 @@ using UnityEngine;
 
 public static class Builder
 {
-    static string ProjectPath => Application.dataPath.Substring(0, Application.dataPath.LastIndexOf ('/'));
-    static string BuildBasePath => Path.Combine(ProjectPath, "Builds");
+    private static string ProjectPath => Application.dataPath.Substring(0, Application.dataPath.LastIndexOf ('/'));
+    private static string BuildBasePath => Path.Combine(ProjectPath, "Builds");
+
+    private static string PlayerName => PlayerSettings.productName;
 
     [MenuItem("Build/StandaloneWindows64")]
     public static void BuildStandaloneWindows64()
@@ -34,9 +36,9 @@ public static class Builder
             targetDirName,
             buildTarget switch
             {
-                BuildTarget.StandaloneWindows or BuildTarget.StandaloneWindows64 => 
-                    $"{PlayerSettings.productName}.exe",
-                _ => PlayerSettings.productName
+                BuildTarget.StandaloneWindows or BuildTarget.StandaloneWindows64 =>
+                    $"{PlayerName}.exe",
+                _ => PlayerName
             }
         );
 
