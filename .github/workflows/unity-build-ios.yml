@@ -34,3 +34,10 @@ jobs:
         run: |
           echo "===== Contents of build/iOS ====="
           tree build/iOS || ls -alR build/iOS
+          
+      # Step 4 - Upload the generated Xcode project
+      - name: Upload Xcode Project
+        uses: actions/upload-artifact@v4
+        with:
+          name: XcodeProject-iOS
+          path: build/iOS
