@@ -44,4 +44,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Build-Windows
-          path: build/StandaloneWindows64
+          path: builds/StandaloneWindows64
