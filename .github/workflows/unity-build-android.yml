@@ -16,12 +16,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step1 - Check Out
       - name: Check Out
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
 
+      # Step2 - Cache Library
       - name: Cache Library
         uses: actions/cache@v4
         with:
@@ -30,11 +32,13 @@ jobs:
           restore-keys: |
             Library-
 
+      # Step3 - Unity Build
       - name: Unity Build
         uses: game-ci/unity-builder@v4
         with:
-          targetPlatform: Android
+          targetPlatform: Android # build '.apk'
 
+      # Step4 - Upload Build File
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
