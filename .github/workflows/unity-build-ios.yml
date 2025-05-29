@@ -1,0 +1,36 @@
+name: UnityBuildTest-iOS
+
+on:
+  workflow_dispatch:
+
+permissions: write-all
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+
+jobs:
+  buildForiOS:
+    name: Build Xcode project for iOS
+    runs-on: macos-latest
+
+    steps:
+      # Step 1 - Check out
+      - name: Check Out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      # Step 2 - Build iOS (Xcode project generation)
+      - name: Unity Build (iOS)
+        uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: iOS
+
+      # Step 3 - Print the contents of the generated Xcode project folder
+      - name: Show Xcode project structure
+        run: |
+          echo "===== Contents of build/iOS ====="
+          tree build/iOS || ls -alR build/iOS
